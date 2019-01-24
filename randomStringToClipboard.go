@@ -7,7 +7,7 @@ import (
 	"github.com/atotto/clipboard"
 )
 
-var chars = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()")
+var chars = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890123456789!@#$%^&*()")
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
