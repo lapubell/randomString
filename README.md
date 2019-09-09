@@ -7,7 +7,7 @@ This program generates a random 32 char string, and adds it to your clipboard. N
 * Make sure your $GOPATH is all set up correctly
 * `go get ...`
 * `go install`
-* now, when you run `randomString` your clipboard should have a 32 character random string
+* now, when you run `randomString` your clipboard will have a string with a length of your choosing.
 
 ## Command line flag options
 ###### Boolean flags can be omitted to use default value
