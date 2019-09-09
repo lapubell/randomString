@@ -8,9 +8,11 @@ import (
 	"github.com/atotto/clipboard"
 )
 
-var chars = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-var specs = []rune("!@#$%^&*(){}[]|+")
-var nums = []rune("0123456789")
+type charRune []rune
+
+var chars = charRune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+var specs = charRune("!@#$%^&*(){}[]|+")
+var nums = charRune("01234567890123456789")
 
 func main() {
 	lengthPtr := flag.Int("len", 32, "String length")
@@ -19,7 +21,7 @@ func main() {
 
 	flag.Parse()
 
-	var output = make([]rune, *lengthPtr)
+	var output = make(charRune, *lengthPtr)
 
 	if *numsPtr {
 		chars = append(chars, nums...)
@@ -29,9 +31,21 @@ func main() {
 		chars = append(chars, specs...)
 	}
 
+	chars.shuffle()
+
 	rand.Seed(time.Now().UnixNano())
 	for i := 0; i < *lengthPtr; i++ {
-		output[i] = chars[rand.Intn(len(chars))]
+		output[i] = chars[rand.Intn(len(chars)-1)]
 	}
 	clipboard.WriteAll(string(output))
+}
+
+func (c charRune) shuffle() {
+	s := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(s)
+
+	for i := range c {
+		rand := r.Intn(len(c) - 1)
+		c[i], c[rand] = c[rand], c[i]
+	}
 }
